@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Container Days Boston 2015</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+	
+        <h1><a href="http://dynamicinfradays.org/events/2015-boston/">Container Days Boston 2015</a></h1>
+        <p>Being new to the container space, it is a bit hard to grok all the different parts, how they worked together and how the space has evolved. </p>
+		
+		<h1>Terminology</h1>
+		<pre><code>
+Containers
+Docker / Rocket
+cgroups
+mount
+LXC - Linux container
+OpenVZ
+Virtual Machine
+		</code></pre>
+		<a href="index.html" id="home">Home</a>
+
+      </header>
+      <section>
+		<img title="overview.jpg" alt=":beer:" src="images/containers_explained_andrew_horizonal.jpg" height="250" width="600" align="absmiddle">
+		<p/>
+		<h3>Overview</h3>
+		<p>
+			This will attempt to be an overview of what I learned at Containers Days Boston, a 2 day event where I listened to a bunch of <a href="http://dynamicinfradays.org/events/2015-boston/#speakers">knowledgeable speakers</a> onsite, and in the bars, as well as attended a Docker workshop on day 2. I have been container curious for a while, and although I have worked with Virtual Machines and found vagrant to be invaluable when setting up environments or deploying to different environments, containers were more of a buzz word that I hoped to play with some day. I am all too familiar with logging on to a machine to find out that something has been set manually, or having to recreate a machine, but having no obvious way to do that apart from some outdated docs or using the `history` command. Containers to the rescue? I'm hoping so! 
+		</p>
+		
+        <h3>
+<a id="libby-viskobatz" class="anchor" href="#libby-viskobatz" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Brief History Of Containers <a href="#">Jeff's slides</a>
+</h3>
+
+<p>
+Jeff and Kir started out with the motivation and history behind all this virtualization: time sharing of expensive mainframe computers at universities.	Jeff gave the Unix side of the story, and Kir gave the Linux (OpenVZ) side of the story.
+</p>
+
+<h3>Virtual Machines and Hypervisor</h3>
+<p>
+	Virtual Machine (or guests) sit on top of a Hypervisor which can be either software or hardware that runs the VM.
+</p>
+<p>
+	Two types of hypervisors: 
+	Type-1: native or bare-metal hypervisors
+	Type-2: hosted hypervisors
+	
+	VM must emulate the underlying hardware i.e. boot up drivers, have there own file system (not shared with host), etc. Virtual Machine (VMs) are slow to start up because they must set up an entire emulator for a machine. VMs were good ways for sandboxing. If one VM goes down, the other VMS remain running.
+</p>
+<p>Fun fact: JVM was the first Virtual Machine that didn't emulate underlying hardware.
+<h3>Levels Of Isolation From Strongest To Weakest</h3>
+<p>
+	<ul>
+		<li><strong>Partitioning:</strong>  best isolation, worst flexibility can't give a little more power.</li>
+		<li><strong>Virtual Machines:</strong> sit on top of a hypervisor, if the hypervisor fails they ALL fail.</li>
+		<li><strong><font color="green">OS Virtualization:</font></strong>  containers / zones (Solaris) collect processes unified by one namespace with access to an operation system KERNAL that it shares with other containers / zones.</li>
+	</ul>
+</p>
+
+<h3>Containers - Virtual Isolated Operating Systems </h3>
+	<p>Containers in Linux / Unix are enabled by the ability to group processes together and add resource controls to that group. Resource limits (IO, CPU) can be set on a containers and apply to the entire group of processes that make up the container. Each container has its own group of processes, own isolated diskspace or namespace, own virtual network device (each container has its own IP address), own users / root, and mounting capabilities, i.e. shared drives can be mounted to the the group of processes.</p>
+	<p>In 2007 engineers at google started working on <code>cgroups</code> as a way to isolate and group a set of processes and set limits for all processes in a group. <code>cgroups</code> were accepted into the Linux kernal since 2.6.24 (2008). Before cgroups were accepted in the kernal only <code>ulimit</code> was available which could set resource limits fro ONE process, but this is not sufficient as applications require more than one process.</p>
+	<p>Since containers all run on top of the same Kernel, one must run "guests" or "Virtualized OS" that run on the the same kernal version.</p>
+<h3>Container Implementation</h3>
+	<p>cgroups + namespaces for resource controls (I/O, RAM, CPU)</p>
+	<p><a href="http://en.wikipedia.org/wiki/LXC">LXC</a> (Linux Containers) - OS level virtualization for running multiple isolated Linux systems (containers) [<a href="http://en.wikipedia.org/wiki/LXC">wiki</a>]</p>
+	<p><a href="http://en.wikipedia.org/wiki/OpenVZ">OpenVZ</a> containers using  <code>cgroup</code> + namespaces (openVZ team implemented namespace)
+	<p><a href="http://en.wikipedia.org/wiki/Solaris_Containers">Solaris Containers (including Solaris Zones)</a></p>
+	
+<h3>Advantages of Containers</h3>	
+<ul>
+	<li>Lightweight when compared to VMs which have their own Kernal, take up RAM, and CPU</li>
+	<li>Boot in a few seconds</li>
+	<li>Simple starting up a few process (copy-on-write Jerome)</li>
+	<li>Better resource sharing: Faster context switching, direct path to I/O</li>
+</ul>
+
+<h3>Enter Docker and other Container runtime APIs</h3>
+<p>Containers are still pretty low level, so docker is a nice API that will create and mange your containers for you. As far as I understand, Docker can be used with different container backends, i.e. OpenVZ, or Solaris Zones.
+	Boyd gave a nice docker tutorial on day 2 <a href="http://stackengine.com/docker-101-01-docker-development-environments/">docker 101</a>	
+</p>
+<p>Docker gives you commands for running / managing containers:
+	<pre><code>docker start</code></pre>
+	<pre><code>docker stop</code></pre>
+   The DockerFile is where you declare what you want your container to run, which volumes you want mounted, and make it all explicit and versionable.
+	<br/><strong>Dockerfile</strong> from Byod's training
+	<pre><code>
+FROM odise/busybox-python
+WORKDIR /code
+RUN easy_install redis && easy_install flask
+ADD . /code # mounts the current dir '.' to the '/code' path inside the container (shared dir with the host)
+CMD python app.py
+	</code></pre>
+</p>
+<p>There are other container runtime APIs apart from <a href="https://www.docker.com/">Docker</a>, i.e. <a href="https://coreos.com/blog/rocket/">CoreOS Rocket</a></p>
+
+<h2>OK so now we have Containers what else do we need?</h2>
+<h3>Task Schedulers, i.e Mesos</h3>
+<p>
+	<ul>
+		<li><strong>Mesos</strong> - task scheduler allowing you to effectively utilize your resources. You need a task run, i.e. web app says I need X CPU, Y filehandlers sends request to Master, master forwards it to Scheduler, scheduler responses with what is available and where (on which machines), the initiating machine get the response and goes and runs its task there. see Joel's talk</li>
+	</ul>	
+</p>
+
+<h3>Shared Repositories - <a href="https://quay.io/repository/">Quay.io</a></h3>
+<p>Once you have your container image you can push it to a shared repository where other developers can gain access to it.
+For example the docker API has commands to tag your container and push it to share repository.
+
+<pre><code>$ docker tag mysmallapp:latest quay.io/{quayusername}/myquayapp:1.0
+$ docker push quay.io/{quayusername/myquayapp:1.0
+</code></pre>		
+
+<h3>Service Level Application Manager: <br/>Mesosphere, Kubernetes, Marathon, Arora</h3>
+<h3>As as service <a href="https://www.tutum.co/how/">Tutum</a></h3>
+<ul>
+	<li> Manages your docker deploys</li>
+	<li> Manages tasks for you via mesos</li>
+	<li> Health Checks</li>
+	<li> Monitoring / Logging</li>
+</ul>
+Special thanks to AP too! =)
+      </section>
+      <footer>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
