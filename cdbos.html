@@ -71,8 +71,8 @@ Jeff and Kir started out with the motivation and history behind all this virtual
 
 <h3>Containers - Virtual Isolated Operating Systems </h3>
 	<p>Containers in Linux / Unix are enabled by the ability to group processes together and add resource controls to that group. Resource limits (IO, CPU) can be set on a containers and apply to the entire group of processes that make up the container. Each container has its own group of processes, own isolated diskspace or namespace, own virtual network device (each container has its own IP address), own users / root, and mounting capabilities, i.e. shared drives can be mounted to the the group of processes.</p>
-	<p>In 2007 engineers at google started working on <code>cgroups</code> as a way to isolate and group a set of processes and set limits for all processes in a group. <code>cgroups</code> were accepted into the Linux kernal since 2.6.24 (2008). Before cgroups were accepted in the kernal only <code>ulimit</code> was available which could set resource limits fro ONE process, but this is not sufficient as applications require more than one process.</p>
-	<p>Since containers all run on top of the same Kernel, one must run "guests" or "Virtualized OS" that run on the the same kernal version.</p>
+	<p>In 2007 engineers at google started working on <code>cgroups</code> as a way to isolate and group a set of processes and set limits for all processes in a group. <code>cgroups</code> were accepted into the Linux kernel since 2.6.24 (2008). Before cgroups were accepted in the kernel only <code>ulimit</code> was available which could set resource limits fro ONE process, but this is not sufficient as applications require more than one process.</p>
+	<p>Since containers all run on top of the same Kernel, one must run "guests" or "Virtualized OS" that run on the the same kernel version.</p>
 <h3>Container Implementation</h3>
 	<p>cgroups + namespaces for resource controls (I/O, RAM, CPU)</p>
 	<p><a href="http://en.wikipedia.org/wiki/LXC">LXC</a> (Linux Containers) - OS level virtualization for running multiple isolated Linux systems (containers) [<a href="http://en.wikipedia.org/wiki/LXC">wiki</a>]</p>
