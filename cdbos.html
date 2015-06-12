@@ -57,7 +57,7 @@ Jeff and Kir started out with the motivation and history behind all this virtual
 	Type-1: native or bare-metal hypervisors
 	Type-2: hosted hypervisors
 	
-	VM must emulate the underlying hardware i.e. boot up drivers, have there own file system (not shared with host), etc. Virtual Machine (VMs) are slow to start up because they must set up an entire emulator for a machine. VMs were good ways for sandboxing. If one VM goes down, the other VMS remain running.
+	VM must emulate the underlying hardware i.e. boot up drivers, have their own file system (not shared with host), etc. Virtual Machine (VMs) are slow to start up because they must set up an entire emulator for a machine. VMs were good ways for sandboxing. If one VM goes down, the other VMS remain running.
 </p>
 <p>Fun fact: JVM was the first Virtual Machine that didn't emulate underlying hardware.
 <h3>Levels Of Isolation From Strongest To Weakest</h3>
@@ -110,7 +110,7 @@ CMD python app.py
 <h3>Task Schedulers, i.e Mesos</h3>
 <p>
 	<ul>
-		<li><strong>Mesos</strong> - task scheduler allowing you to effectively utilize your resources. You need a task run, i.e. web app says I need X CPU, Y filehandlers sends request to Master, master forwards it to Scheduler, scheduler responses with what is available and where (on which machines), the initiating machine get the response and goes and runs its task there. see Joel's talk</li>
+		<li><strong>Mesos</strong> - task scheduler allowing you to effectively utilize your resources. You need a task run, i.e. web app says I need X CPU, Y filehandlers sends request to Master, master forwards it to Scheduler, scheduler responses with what is available and where (on which machines), the initiating machine get the response and goes and runs its task there. see Joe's talk</li>
 	</ul>	
 </p>
 
