@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Nand2Tetris part 1 Hardware</title>
+		
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Nand2Tetris Part 1 </h1>
+		<h2>The hardware</h2>
+		
+        <p>I highly recommend this class if you are at all curious about what goes on under the hood. </p>
+		
+		<h2>Terminology</h2>
+		<pre><code>
+Logic Gates
+Nand, And, Or, Not
+Multiplexor (Mux)
+Demultiplexer (Dmux)
+HDL
+Data Flip Flop (DFF)
+Register
+CPU
+ALU
+RAM 
+Drivers
+ROM
+Program Counter (PC)
+Von Neumann Architecture
+Harvard Architecture 
+</code></pre>
+
+<p><a href="index.html" id="home">Home</a></p>
+      </header>
+
+      <section>
+		<img title="CPU diagram" alt="CPU" src="images/nand2tetris/computer_architecture_2.jpg" height="350" width="650" align="absmiddle">
+		<p/>
+		<h3>Overview</h3>
+		<p>
+			This class takes you from the lowest level logic gates, where you are only allowed Nand and must build all other gates starting from Nand.
+		</p>
+		
+        <h3>The Gates</h3>
+		<p> 
+			<pre><code>And</code></pre>
+			<pre><code>Not</code></pre>
+			<pre><code>And</code></pre>
+			<pre><code>Or</code></pre>
+			<pre><code>multiplexer - multiple inputs one output</code></pre>
+			<pre><code>demultiplexer - one input multiple outputs</code></pre>
+		</p>
+		
+		<h2>CPU - ALU, RAM, ROM, buses</h2>
+		> CPU responsible for fetching an instructions from memory and executing it.
+		<h3>The Arithmetic Logic Unit (ALU) - The brains</h3>
+		<p>
+			The ALU holds the gates that know how to do computations at a hardware level. ALUs vary in their complexity, they might only support some basic zeroing, negating and addition of their input or they might support multiplication and division at the hardware level. The more operation an ALU supports the faster it will be able to do those operation, but they more costly it will be to produce the ALU. The operation not supported by the ALU can be implemented in the software.
+		</p>
+		
+		<h3>Buses</h3>
+		<p>Move the data around: bata bus, control bus, address bus. The bus size determines the size of the data unit that the computer can work on, i.e. 16 bit bus can move data around in 16 bit chunks, a 16 bit computer will have registers that can hold 16-bits (word size), and that mean an address value can be 2^15 (2s-complement, the 1 bit MSB is used to represent negative numbers). A 32 bit computer can move data around in 32 bit chunks or words. Most computers today are 64 bit computers and operate on 64 bits at a time.
+		</p>
+		
+		<h3>Registers and maintaining state</h3>
+		<p>
+			The <strong>Data Flip Flop (DFF)</strong> will keep outputting a value X from the previous clock cycle.</p>
+		<p>
+			A Register uses a DFF internal and will keep outputting its current value at every clock cycle, unless the load bit is set. If the register's value X is set, it will continue to output X until the load bit is set, then the Register will accept the current input X2, if the load bit is then unset the DFF will continuously output X2 until it is loaded with a new value again.The simplest <strong>Register</strong> is 1 bit, it can be loaded with a single value. The registers can store data or an address. A 16 bit register is built up of 16 1-bit registers, and a 32 bit register is built up from 2 16-bit registers, etc.
+		</p>
+		<p>
+			There are two types of registers: A-registers which hold addresses, and D-registers which hold data.
+		</p>
+
+		<h3>RAM and ROM</h3>
+		<p>RAM is the memory close to the CPU, it is built out of a series of registers and is readable and writeable.</p>
+		<p>ROM is read only memory, this is memory that holds the initial program or the boot up program.</p>
+		
+		<h3>Program Counter</h3>
+		<ul>
+		<li>Put the location of the next instruction into the **"address"** of the program memory.</li>
+		<li>Get the instruction code itself by reading the memory contents at that location.</li>
+		<li>Usually instructions are sequential, finish 8 next 9.</li>
+		<li>Sometime Jump to different instruction.</li>
+		</ul>
+		<h4>Program Counters for each program</h4>
+		<ul>
+			<li>Instructions at the bottom, starting at 0 + program offset.</li>
+			<li>Stack grows form the top.</li>
+			<li>A stack overflow occurs if the stack grows downwards and runs into the instruction memory.</li>
+		</ul>
+
+		<h3>Computer Architecture Von Neumann, Harvard</h3>
+		<img title="ENIAC first general purpose computer" alt="ENIAC" src="images/nand2tetris/eniac.jpg" height="200" width="400" align="absmiddle">
+		<p><a ahref="http://en.wikipedia.org/wiki/John_von_Neumann">Von Neumann</a> came up with the brilliant idea that a program can be loaded into a computer circa 1946. Before that a machine had one function and the program was burned into the chips, think washing machine to wash clothes, dish washer to wash dishes, etc. He modified the ENIAC (the first general-purpose computer) to run programs! Most present day computers are based on Von Neumann architecture: programs and data live in the same place. This means I can type away and listen to music on the same device, install new software and run it, and play games like Tetris the ultimate goal of Nand2Tetris class. The <i>stored program concept</i> was revolutionary in 1946 and we owe a lot to "Jonny" listen to <a href="https://youtu.be/VTS9O0CoVng?t=2091">this guy.</a></p> 
+		<p>Harvard Architecture is a more modern computer architecture and simpler to implement. Professor Nisan says he considers Harvard architecture to be a derivative of the Von Neumann architecture. In the Harvard Architecture data and instructions (programs) have separate buses. The HACK computer you build in Nand2Tetris is based on the Harvard Architecture, this means you don't have to synchronize the buses and know when the bus is transporting data or when it is transporting instructions. You just open the flood gate to either the data bus or the instruction bus (using a multiplexer) and let in what you want.
+		</p>
+		<h3>Machine Code</h3>
+		<p>1111 0000 1111 1111 16-bit instruction. This is what tells the CPU what to do. It can be broken down into 1 bit op code (A-instruction, C-Instruciton), if it is an A instruction then the rest of the bits represent a memory address, if it is a C-instruction, the c1c2c3c4c5c6 d1d2d3 j1j2j3 where the cs tell what operation to preform, the ds tell where to store the data (M-register, A-register, D-register or all), and the js tell whether or not to preform a jump, i.e. reset the program counter or jump to a specific instruction.</p>
+		<h3>Assembly</h3>
+		<p>Higher level than machine code. It is more readable
+		<pre><code>
+@1
+0;JMP
+D=D+1
+(LOOP)
+@LOOP
+D;JGT
+		</pre></code>		
+		</p>
+		
+		<h3>Assembler</h3>
+		<p>
+			Translates Assembly into machine code. Compiler for machine code. Parse the assembly, translate it to machine code. Must replace variable and Lables (i.e. <code>(Loop)</code>) with the specific address in memory.
+		</p>
+      </section>
+      <!-- <footer>
+              <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+            </footer> -->
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
