@@ -15,10 +15,10 @@
   <body>
     <div class="wrapper">
       <header>
-	
+	    <h1><a href="http://libbykent.com">Libby Kent</a></h1>
         <h1><a href="http://dynamicinfradays.org/events/2015-boston/">Container Days Boston 2015</a></h1>
         <p>Being new to the container space, it is a bit hard to grok all the different parts, how they worked together and how the space has evolved. </p>
-		
+
 		<h1>Terminology</h1>
 		<pre><code>
 Containers
@@ -37,9 +37,9 @@ Virtual Machine
 		<p/>
 		<h3>Overview</h3>
 		<p>
-			This will attempt to be an overview of what I learned at Containers Days Boston, a 2 day event where I listened to a bunch of <a href="http://dynamicinfradays.org/events/2015-boston/#speakers">knowledgeable speakers</a> onsite, and in the bars, as well as attended a Docker workshop on day 2. I have been container curious for a while, and although I have worked with Virtual Machines and found vagrant to be invaluable when setting up environments or deploying to different environments, containers were more of a buzz word that I hoped to play with some day. I am all too familiar with logging on to a machine to find out that something has been set manually, or having to recreate a machine, but having no obvious way to do that apart from some outdated docs or using the `history` command. Containers to the rescue? I'm hoping so! 
+			This will attempt to be an overview of what I learned at Containers Days Boston, a 2 day event where I listened to a bunch of <a href="http://dynamicinfradays.org/events/2015-boston/#speakers">knowledgeable speakers</a> onsite, and in the bars, as well as attended a Docker workshop on day 2. I have been container curious for a while, and although I have worked with Virtual Machines and found vagrant to be invaluable when setting up environments or deploying to different environments, containers were more of a buzz word that I hoped to play with some day. I am all too familiar with logging on to a machine to find out that something has been set manually, or having to recreate a machine, but having no obvious way to do that apart from some outdated docs or using the `history` command. Containers to the rescue? I'm hoping so!
 		</p>
-		
+
         <h3>
 <a id="libby-viskobatz" class="anchor" href="#libby-viskobatz" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Brief History Of Containers <a href="#">Jeff's slides</a>
 </h3>
@@ -53,10 +53,10 @@ Jeff and Kir started out with the motivation and history behind all this virtual
 	Virtual Machine (or guests) sit on top of a Hypervisor which can be either software or hardware that runs the VM.
 </p>
 <p>
-	Two types of hypervisors: 
+	Two types of hypervisors:
 	Type-1: native or bare-metal hypervisors
 	Type-2: hosted hypervisors
-	
+
 	VM must emulate the underlying hardware i.e. boot up drivers, have their own file system (not shared with host), etc. Virtual Machine (VMs) are slow to start up because they must set up an entire emulator for a machine. VMs were good ways for sandboxing. If one VM goes down, the other VMS remain running.
 </p>
 <p>Fun fact: JVM was the first Virtual Machine that didn't emulate underlying hardware.
@@ -78,8 +78,8 @@ Jeff and Kir started out with the motivation and history behind all this virtual
 	<p><a href="http://en.wikipedia.org/wiki/LXC">LXC</a> (Linux Containers) - OS level virtualization for running multiple isolated Linux systems (containers) [<a href="http://en.wikipedia.org/wiki/LXC">wiki</a>]</p>
 	<p><a href="http://en.wikipedia.org/wiki/OpenVZ">OpenVZ</a> containers using  <code>cgroup</code> + namespaces (openVZ team implemented namespace)
 	<p><a href="http://en.wikipedia.org/wiki/Solaris_Containers">Solaris Containers (including Solaris Zones)</a></p>
-	
-<h3>Advantages of Containers</h3>	
+
+<h3>Advantages of Containers</h3>
 <ul>
 	<li>Lightweight when compared to VMs which have their own Kernel, take up RAM, and CPU</li>
 	<li>Boot in a few seconds</li>
@@ -89,7 +89,7 @@ Jeff and Kir started out with the motivation and history behind all this virtual
 
 <h3>Enter Docker and other Container runtime APIs</h3>
 <p>Containers are still pretty low level, so docker is a nice API that will create and mange your containers for you. As far as I understand, Docker can be used with different container backends, i.e. OpenVZ, or Solaris Zones.
-	Boyd gave a nice docker tutorial on day 2 <a href="http://stackengine.com/docker-101-01-docker-development-environments/">docker 101</a>	
+	Boyd gave a nice docker tutorial on day 2 <a href="http://stackengine.com/docker-101-01-docker-development-environments/">docker 101</a>
 </p>
 <p>Docker gives you commands for running / managing containers:
 	<pre><code>docker start</code></pre>
@@ -111,7 +111,7 @@ CMD python app.py
 <p>
 	<ul>
 		<li><strong>Mesos</strong> - task scheduler allowing you to effectively utilize your resources. You need a task run, i.e. web app says I need X CPU, Y filehandlers sends request to Master, master forwards it to Scheduler, scheduler responses with what is available and where (on which machines), the initiating machine get the response and goes and runs its task there. see Joe's talk</li>
-	</ul>	
+	</ul>
 </p>
 
 <h3>Shared Repositories - <a href="https://quay.io/repository/">Quay.io</a></h3>
@@ -120,7 +120,7 @@ For example the docker API has commands to tag your container and push it to sha
 
 <pre><code>$ docker tag mysmallapp:latest quay.io/{quayusername}/myquayapp:1.0
 $ docker push quay.io/{quayusername/myquayapp:1.0
-</code></pre>		
+</code></pre>
 
 <h3>Service Level Application Manager: <br/>Mesosphere, Kubernetes, Marathon, Arora</h3>
 <h3>As as service <a href="https://www.tutum.co/how/">Tutum</a></h3>
