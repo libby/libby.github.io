@@ -1,0 +1,57 @@
+libbier
+==================================================================
+https://keybase.io/libbier
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://blog.libbykent.com
+  * I am libbier (https://keybase.io/libbier) on keybase.
+  * I have a public key ASAdDkFJ_IK1u45CjGQw2lJrACKY5uF_x7LdCG0YoE3e6Qo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012076de3b7df5805de65c5fbe03e3d85ec9125cec1c1e02fec61f2891b57b2e11c80a",
+      "host": "keybase.io",
+      "kid": "01201d0e4149fc82b5bb8e428c6430da526b002298e6e17fc7b2dd086d18a04ddee90a",
+      "uid": "8e0ae3da3ac0f09c2641d40cef0bea19",
+      "username": "libbier"
+    },
+    "merkle_root": {
+      "ctime": 1568648513,
+      "hash": "23fb921906776d89304931fcd264325d2237bd6cfb5a28faf722d2db04d086a64aa2f464013bcb5a4f19954cd8ab27358464fd21ce246237d09b904e96201e4e",
+      "hash_meta": "a5f0614e8b715cf7bda08e6acfd673ac9d46ff6988a84d2e6001a08d0a43204a",
+      "seqno": 7473441
+    },
+    "service": {
+      "entropy": "5mz54gCKFgnHmAFkSq9ecgdw",
+      "hostname": "blog.libbykent.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.4.2"
+  },
+  "ctime": 1568648548,
+  "expire_in": 504576000,
+  "prev": "30e90ad77bee664d230ef9a82df8dd8343fcf1bc65f477b24d515ba0a731ea33",
+  "seqno": 19,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgHQ5BSfyCtbuOQoxkMNpSawAimObhf8ey3QhtGKBN3ukKp3BheWxvYWTESpcCE8QgMOkK13vuZk0jDvmoLfjdg0P88bxl9HeyTVFboKcx6jPEILZyIHCFTgAAdBvkyMyS1hBtANCSCcqXeoulKlUNJofLAgHCo3NpZ8RAfGYi7hth5uAfbDqizOHHamnLIA65UzxdfIwEJKE9zoEw/QhVfGFI/npvkcVg6dmHNa2m0dt+CenCcXn9vxDcAqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEICrbQ048qsdNxME4zY+ySdBAn96+SoQdy+9TV/AXMAVZo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/libbier
+
+==================================================================
